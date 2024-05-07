@@ -1,0 +1,4 @@
+name: MardsMiniGames
+version: '${project.version}'
+main: com.mards.mardsminigames.MardsMiniGames
+api-version: '1.16'

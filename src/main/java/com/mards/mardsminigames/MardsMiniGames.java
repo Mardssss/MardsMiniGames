@@ -14,7 +14,6 @@ public final class MardsMiniGames extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("mardsminigame")).setExecutor(new MyCommand(this));
         Objects.requireNonNull(this.getCommand("mardsminigame")).setTabCompleter(new MyTabCompleter());
 
-
     }
 
     @Override

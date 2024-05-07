@@ -1,6 +1,7 @@
 package com.mards.mardsminigames.minigames;
 
 import com.mards.mardsminigames.MardsMiniGames;
+import com.mards.mardsminigames.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,28 +18,30 @@ public class CatchCatch implements Listener {
     List<Player> hunters;
     List<Player> victims;
     BukkitTask task;
-    private int durationInSeconds = 120; // 5 minutes (300 seconds)
+    private final int durationInSeconds;
     private boolean gameStarted;
-    private MardsMiniGames plugin;
+    private final MardsMiniGames plugin;
 
-    public CatchCatch(MardsMiniGames plugin) {
+    public CatchCatch(MardsMiniGames plugin,int durationInSeconds) {
         this.plugin = plugin;
+        this.durationInSeconds = durationInSeconds;
         plugin.getServer().getPluginManager().registerEvents(this,plugin);
         this.gameStarted = false;
         this.hunters = new ArrayList<>();
         this.victims = new ArrayList<>();
     }
     public void startGame() {
+        plugin.getServer().getLogger().info(Utils.color("catch catch minigame started"));
         this.gameStarted = true;
         assignRandomHunter();
 
         // Start a timer for the minigame to end
-        new BukkitRunnable() {
+        task = new BukkitRunnable() {
             @Override
             public void run() {
                 endGame();
             }
-        }.runTaskLater(plugin, durationInSeconds * 20); // Convert seconds to ticks
+        }.runTaskLater(plugin, durationInSeconds * 20L); // Convert seconds to ticks
     }
     private void assignRandomHunter() {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

@@ -1,16 +1,18 @@
 package com.mards.mardsminigames;
 
-import com.mards.mardsminigames.minigames.CatchCatch;
+import com.mards.mardsminigames.commands.MyCommand;
+import com.mards.mardsminigames.commands.MyTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class MardsMiniGames extends JavaPlugin {
-    public CatchCatch catchCatch;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        catchCatch = new CatchCatch(this);
-        catchCatch.startGame();
+        Objects.requireNonNull(this.getCommand("mardsminigame")).setExecutor(new MyCommand(this));
+        Objects.requireNonNull(this.getCommand("mardsminigame")).setTabCompleter(new MyTabCompleter());
 
 
     }

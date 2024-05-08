@@ -31,7 +31,8 @@ public class CatchCatch implements Listener {
         this.victims = new ArrayList<>();
     }
     public void startGame() {
-        plugin.getServer().getLogger().info(Utils.color("catch catch minigame started"));
+        plugin.getServer().getLogger().info(Utils.color("catch catch mini game started"));
+        Bukkit.getServer().broadcast(Utils.color("&3The Mini Game started"), "permission.broadcast");
         this.gameStarted = true;
         assignRandomHunter();
 

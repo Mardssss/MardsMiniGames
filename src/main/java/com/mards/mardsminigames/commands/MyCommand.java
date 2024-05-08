@@ -16,17 +16,23 @@ public class MyCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String string, String[] args) {
-        if (args.length == 1){
-            return false;
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length != 1) {
+            sender.sendMessage("Usage: /mardsminigame <minigame>");
+            return true; // Correct usage message sent, returning true
         }
-        if (args.length == 2){
-            // minigame someminigame
-            if (args[0].equalsIgnoreCase("catch-catch")){
-                catchCatch = new CatchCatch(plugin,120);
-                catchCatch.startGame();
+
+        if (args[0].equalsIgnoreCase("catch-catch")) {
+            if (!sender.hasPermission("mardsminigame.play.catch-catch")) {
+                sender.sendMessage("You don't have permission to play Catch Catch!");
+                return true; // Sender doesn't have permission, returning true
             }
+            catchCatch.startGame();
+            return true; // Game started, returning true
         }
-        return false;
+
+        // If the provided minigame is not recognized, send usage message
+        sender.sendMessage("Unknown minigame. Available options: catch-catch");
+        return true;
     }
 }
